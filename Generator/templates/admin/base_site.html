@@ -1,0 +1,22 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+<h1>SFIA Generator Admin</h1>
+{% endblock %}
+
+{% block title %}
+SFIA Generator Admin
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/admin_extrastyle.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+{% endblock %}
+
+{% block nav-global %}
+<a href="{% url 'language_preferences_page' %}" class="changelink">Language Preferences</a>
+{% endblock %}

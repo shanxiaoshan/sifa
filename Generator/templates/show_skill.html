@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {% if code_2 %}
+                    <br>
+                    <form name='selection_form' method="post" data-ajax="false" action="{% url 'form_page' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="code_1" name="code_1" value="{{ code_1 }}">
+                        <input type="hidden" id="code_2" name="code_2" value="{{ code_2 }}">
+                        <input type="submit" value="{% trans 'Click Here to Pre-Populate Form' %}">
+                    </form>
+                    <a href="{% url 'select_second' code_1 %}">{% trans "Click here to select a different second skill" %}</a>
+                    <br>
+                {% else %}
+                    <br>
+                    <form name='selection_form' method="post" data-ajax="false" action="{% url 'form_page' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="code_1" name="code_1" value="{{ skill.code }}">
+                        <input type="hidden" id="code_2" name="code_2" value="">
+                        <input type="submit" value="{% trans 'Click Here to Pre-Populate Form with only one skill' %}">
+                    </form>
+                    <a href="{% url 'select_second' skill.code %}">{% trans "Click here to select this as your first skill" %}</a>
+                    <br>
+                {% endif %}
+                {% if code_1 %}
+                    <a href="{% url 'list_skills_page' %}">{% trans "Click here to restart selection or list skills" %}</a>
+                {% else %}
+                    <a href="{% url 'list_skills_page' %}">{% trans "Click here to show the list of skills or select skills" %}</a>
+                {% endif %}
+                <br>
+                <br>
+                <h2 style="font-weight: bold;">{% trans "Skills Information:" %}</h2>
+                <h4>{{ skill.code.upper|upper }} - {{ skill.name }}</h4>
+                <p>{{ skill.description }}</p>
+                <h4>Levels</h4>
+                {% for level in levels %}
+                    <h6>Level {{ level.level }}</h6>
+                    <p>{{ level.description }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html><!-- HTML 5 -->
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% csrf_token %}
+{% block head %}
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <br>
+                <br>
+                <h2 style="font-weight: bold;">Skills Available:</h2>
+                {% if not global_preferences.Enable_Welsh_SFIA_Skills and LANGUAGE_CODE == 'cy'%}<p>({% trans 'Unfortunately the SFIA skills are not currently available in Welsh' %})</p>{% endif %}
+                {% include 'messages.html' %}
+                {% if code_1 %}
+                    <a href="{% url 'list_skills_page' %}">{% trans "Click here to select a different first skill" %}</a>
+                    <br>
+                    <br>
+                {% endif %}
+                <div class="row">
+                    {% for ct in category_skill.category %}
+                        <ul style="list-style-type:none;">
+                        <li style="font-size: xxx-large">{{  ct.name }}</li>
+                            {% for subct in ct.subcategory %}
+                            <li style="font-size: xx-large">{{ subct.name }}</li>
+                            {% for skill in subct.skill %}
+                                <li>
+                                    {% if code_1 %}
+                                        <div class="column" style="float: left; width: 30%;padding: 10px;height: 100px;">
+                                            <a href="{% url 'view_second' code_1 skill.code %}">{{ skill.name }}</a>
+                                            <h5>{{ skill.code.upper|upper }}</h5>
+                                        </div>
+                                        <div class="column" style="float: left; width: 70%;padding: 10px;height: 100px;">
+                                            {{ skill.description }}
+                                        </div>
+                                    {% else %}
+                                        <div class="column" style="float: left; width: 30%;padding: 10px;height: 100px;">
+                                            <a href="{% url 'show_skill_page' skill.code %}">{{ skill.name }}</a>
+                                            <h5>{{ skill.code.upper|upper }}</h5>
+                                        </div>
+                                        <div class="column" style="float: left; width: 70%;padding: 10px;height: 100px;">
+                                            {{ skill.description }}
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
