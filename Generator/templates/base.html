@@ -4,13 +4,14 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
   <head>
+    <base href="/">
 	<script id="jQuery" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script> 
+	<script>
 		function deleteJQuery(){
 			let jQuery = document.getElementById('jQuery');
 			jQuery.remove();
@@ -46,7 +47,6 @@
 	</style>
   </head>
   <body>
-    <header>
 	  <div >
 	  <title>{% trans "SFIA Generator" %}</title>
 	  <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -84,9 +84,7 @@
 	      </ul>
 	    </div>
 	  </nav>
-	  </div>
-	</header>
-	
+      </div>
   {% block content %}
   {% endblock %}
   </body>

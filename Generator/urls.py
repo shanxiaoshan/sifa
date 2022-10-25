@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.urls import path, re_path
 from . import views
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('select/<slug:code_1>/<slug:code_2>/', views.view_second, name='view_second'),
     path('language_preferences/', views.language_preferences_page, name='language_preferences_page'),
     #
-    re_path(r'^uploads/$',views.uploads)
+    re_path(r'^uploads/$',views.uploads),
+
 
 ]
